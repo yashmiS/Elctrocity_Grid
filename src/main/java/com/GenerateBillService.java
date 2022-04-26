@@ -51,4 +51,19 @@ public class BillService {
 		 String output = billObj.updateBill(idbill, name, date, period);
 		 return output;
 	 }
+      @DELETE
+	 @Path("/")
+	 @Consumes(MediaType.APPLICATION_JSON)
+	 @Produces(MediaType.TEXT_PLAIN)
+	 public String deleteBill(String deleteData)
+	 {
+		 JsonObject updateObject = new JsonParser().parse(deleteData).getAsJsonObject();
+		 
+		 String idbill = updateObject.get("idbill").getAsString();
+		 
+		 String output = billObj.deleteBill(idbill);
+		 return output;
+
+	 }
+	
 }
