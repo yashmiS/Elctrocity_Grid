@@ -37,7 +37,7 @@ public class UserService {
 		  return userObj.readUser(); 
 	  }
 
-      
+
       @PUT
 	 @Path("/")
 	 @Consumes(MediaType.APPLICATION_JSON)
@@ -53,5 +53,20 @@ public class UserService {
 		 
 		 String output = userObj.updateUser(iduser, name, nic, password);
 		 return output;
+	 }
+
+      @DELETE
+	 @Path("/")
+	 @Consumes(MediaType.APPLICATION_JSON)
+	 @Produces(MediaType.TEXT_PLAIN)
+	 public String deleteUser(String deleteData)
+	 {
+		 JsonObject updateObject = new JsonParser().parse(deleteData).getAsJsonObject();
+		 
+		 String iduser = updateObject.get("iduser").getAsString();
+		 
+		 String output = userObj.deleteUser(iduser);
+		 return output;
+
 	 }
 }
