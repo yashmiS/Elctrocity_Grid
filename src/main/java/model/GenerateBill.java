@@ -128,4 +128,29 @@ public String updateBill(String idbill,String name, String date, String period)
 	 } 
 	 return output; 
 	 } 
+     public String deleteBill(String idbill) 
+ { 
+ String output = ""; 
+ try
+ { 
+ Connection con = connect(); 
+ if (con == null) 
+ {return "Error while connecting to the database for deleting."; } 
+ // create a prepared statement
+ String query = "delete from bill where idcomplain=?"; 
+ PreparedStatement preparedStmt = con.prepareStatement(query); 
+ // binding values
+ preparedStmt.setInt(1, Integer.parseInt(idbill)); 
+ // execute the statement
+ preparedStmt.execute(); 
+ con.close(); 
+ output = "Deleted successfully"; 
+ } 
+ catch (Exception e) 
+ { 
+ output = "Error while deleting the Complain Details"; 
+ System.err.println(e.getMessage()); 
+ } 
+ return output; 
+ }
 }
