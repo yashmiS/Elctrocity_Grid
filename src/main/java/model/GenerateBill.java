@@ -99,4 +99,33 @@ public String readBill() {
 	return output;
 }
 
+public String updateBill(String idbill,String name, String date, String period) 
+{ 
+	 String output = ""; 
+	 try
+	 { 
+	 Connection con = connect(); 
+	 if (con == null) 
+	 {return "Error while connecting to the database for updating."; } 
+	 // create a prepared statement
+	 String query = "UPDATE bill SET name=?,date=?,period=? WHERE idbill=?"; 
+	 PreparedStatement preparedStmt = con.prepareStatement(query); 
+	 // binding values
+	 preparedStmt.setString(1, name); 
+	 preparedStmt.setString(2, date); 
+	 preparedStmt.setString(3, period); 
+	 preparedStmt.setInt(5, Integer.parseInt(idbill)); 
+
+	 // execute the statement
+	 preparedStmt.execute(); 
+	 con.close(); 
+	 output = "Updated successfully"; 
+	 } 
+	 catch (Exception e) 
+	 { 
+	 output = "Error while updating the complain details."; 
+	 System.err.println(e.getMessage()); 
+	 } 
+	 return output; 
+	 } 
 }

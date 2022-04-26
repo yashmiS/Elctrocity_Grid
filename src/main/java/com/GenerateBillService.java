@@ -34,5 +34,21 @@ public class BillService {
 	  { 
 		  return billObj.readBill(); 
 	  }
-     
+          @PUT
+	 @Path("/")
+	 @Consumes(MediaType.APPLICATION_JSON)
+	 @Produces(MediaType.TEXT_PLAIN)
+	 public String updateBill(String updateData)
+	 {
+		 JsonObject updateObject = new JsonParser().parse(updateData).getAsJsonObject();
+		 
+		 String idbill = updateObject.get("idcomplain").getAsString();
+		 String name = updateObject.get("name").getAsString();
+		 String date = updateObject.get("date").getAsString();
+		 String period = updateObject.get("period").getAsString();
+	
+		 
+		 String output = billObj.updateBill(idbill, name, date, period);
+		 return output;
+	 }
 }
