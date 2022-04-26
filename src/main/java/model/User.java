@@ -99,4 +99,33 @@ public class User {
 		
 		return output;
 	} 
+    public String updateUser(String iduser,String name, String nic, String password) 
+	{ 
+		 String output = ""; 
+		 try
+		 { 
+		 Connection con = connect(); 
+		 if (con == null) 
+		 {return "Error while connecting to the database for updating."; } 
+		 // create a prepared statement
+		 String query = "UPDATE user SET name=?,nic=?,password=? WHERE iduser=?"; 
+		 PreparedStatement preparedStmt = con.prepareStatement(query); 
+		 // binding values
+		 preparedStmt.setString(1, name); 
+		 preparedStmt.setString(2, nic); 
+		 preparedStmt.setString(3, password); 
+		 preparedStmt.setInt(5, Integer.parseInt(iduser)); 
+
+		 // execute the statement
+		 preparedStmt.execute(); 
+		 con.close(); 
+		 output = "Updated successfully"; 
+		 } 
+		 catch (Exception e) 
+		 { 
+		 output = "Error while updating the user details."; 
+		 System.err.println(e.getMessage()); 
+		 } 
+		 return output; 
+		 } 
 }

@@ -36,4 +36,22 @@ public class UserService {
 	  { 
 		  return userObj.readUser(); 
 	  }
+
+      
+      @PUT
+	 @Path("/")
+	 @Consumes(MediaType.APPLICATION_JSON)
+	 @Produces(MediaType.TEXT_PLAIN)
+	 public String updateUser(String updateData)
+	 {
+		 JsonObject updateObject = new JsonParser().parse(updateData).getAsJsonObject();
+		 
+		 String iduser = updateObject.get("iduser").getAsString();
+		 String name = updateObject.get("name").getAsString();
+		 String nic = updateObject.get("nic").getAsString();
+		 String password = updateObject.get("password").getAsString();
+		 
+		 String output = userObj.updateUser(iduser, name, nic, password);
+		 return output;
+	 }
 }
